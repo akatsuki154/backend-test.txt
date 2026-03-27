@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: altcoin-sinyal-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app.main:app -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 120
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: ENABLE_RATE_LIMIT
+        value: "true"
+      - key: EXCHANGE_TIMEOUT
+        value: "10000"
+      # CORS_ORIGINS ve BINANCE_SECRET gibi hassas değerleri
+      # Render dashboard üzerinden manuel ekle — buraya yazma
